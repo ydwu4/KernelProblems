@@ -1,63 +1,68 @@
-# v8 benchmark comparison
+# v8 GB300 benchmark comparison
 
-Consolidated from 20 per-problem `benchmark.json` files. The [consolidated JSON](benchmark_comparison.json) retains every original entry and field.
+Fresh measurements for all 20 problems. The [consolidated JSON](benchmark_comparison.json) contains every backend entry, hardware/software provenance, strict parity results, and timing ranges.
 
-`simple_prompt_kernel` has a lower recorded time than the fastest passing alternative in 17 of 17 problems with usable alternatives. The geometric mean of the recorded best-other/simple ratios is 4.12x. 3 problems have no passing alternative timing.
+`simple_prompt_kernel` is **3.50x faster than eager** by geometric mean. For the fastest other backend passing its numerical tolerance, the geometric mean of other/simple timing ratios is **1.25x** across 20 paired problems. Simple has the lower median in 17/20; differences close to 1x should be read alongside the timing ranges.
 
-- This report reads only v8/*/benchmark.json; it does not run or retime kernels.
-- Time ratios use the stored time_ms values. Earlier backend entries omit hardware, software, and timing-method metadata, so common measurement conditions are unverified.
-- PASS, tol_tier, errors, notes, and failure reasons are preserved as reported. Some historical entries labeled bitwise have nonzero max_abs_err. Neither that label nor a zero numerical error alone proves raw-byte parity.
-- Ratios include only PASS entries with finite positive timings. Missing, failed, errored, or skipped alternatives do not count as timing wins.
-- Memory and roofline findings appear in simple_prompt_kernel notes; the other entries do not contain corresponding measurements for a quantitative comparison.
+- All timings are fresh NVIDIA GB300 measurements. For each problem, eager and all available backends used the same physical GPU, identical seed-0 inputs, software environment, and CUDA-graph timing method.
+- Time is the median of 15 interleaved CUDA-event samples, with 50 calls per graph replay. Compilation, five function warmups, five graph warmups, and one replay before each sample are excluded. Outputs are released after each captured call.
+- Both compiled backends use torch.compile with inductor, fullgraph=True, dynamic=False and internal CUDA graphs disabled. The max-autotune entry enables max_autotune. Each backend uses the same external CUDA-graph timing procedure.
+- Other-backend PASS requires numerical agreement on three seeds under the previously stored atol_eff/rtol, or 0.05/0.01 where absent. Compiled outputs receive the same check. Historical bitwise tolerance labels are renamed pointwise; they never imply byte equality.
+- simple_prompt_kernel PASS requires strict byte equality and memory parity. The consolidated report's per_problem_measurements section contains environment and parity details; per-problem benchmark.json files retain their original result format. Checks use seeds 17, 113, 2027, three calls per seed, retained-output checks, unchanged inputs, matching output metadata/aliases, and peak allocation no higher than eager.
+- Ratios include only PASS entries with positive timings. Timings for numerical failures are retained but excluded from those ratios. Very small differences can fall within measurement variation.
+- Roofline notes retain source-matched prior profiling; this rerun measures latency and parity, not new roofline profiles. Nine simple kernels still lack an established roofline result.
 
-All times below are stored values in milliseconds. “Best other / simple” uses the fastest passing non-simple backend; eager is shown separately.
+All times are milliseconds. Failed results show their timing but do not count as passing alternatives.
 
-| Problem | eager_ms | kernelagent_triton | kernelagent_triton_opt | torch_compile | torch_compile_max_autotune | simple_prompt_kernel | Best other / simple |
+| Problem | eager | kernelagent_triton | kernelagent_triton_opt | torch_compile | torch_compile_max_autotune | simple_prompt_kernel | Best passing other / simple |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [12545c1e9b06](12545c1e9b06/benchmark.json) | 1.764943 | 0.523399 | 0.520038 | 0.290503 | 1.591346 | 0.067933 | 4.28x |
-| [385e1beb9bb9](385e1beb9bb9/benchmark.json) | 0.945019 | 0.635482 | 0.630485 | 0.624390 | 1.676725 | 0.197077 | 3.17x |
-| [3c6c589cdf81](3c6c589cdf81/benchmark.json) | 0.668178 | 0.387405 | 0.245695 | 0.290313 | 0.581788 | 0.101069 | 2.43x |
-| [43f0c930291e](43f0c930291e/benchmark.json) | — | FAIL | SKIP | ERROR | ERROR | 0.106206 | — |
-| [493cad38cac9](493cad38cac9/benchmark.json) | 0.551228 | 0.161767 | 0.090036 | 0.407614 | 0.395557 | 0.018328 | 4.91x |
-| [4b90e2d83144](4b90e2d83144/benchmark.json) | 0.202886 | 0.104731 | 0.102200 | 0.185122 | 0.256729 | 0.020507 | 4.98x |
-| [622c35f5d1c6](622c35f5d1c6/benchmark.json) | 12.149397 | 2.911875 | SKIP | 3.003288 | 6.798575 | 0.866768 | 3.36x |
-| [71f1d2c9f38b](71f1d2c9f38b/benchmark.json) | 10.970360 | 1.840799 | 1.840914 | 1.368699 | 3.150474 | 0.517579 | 2.64x |
-| [7815074de963](7815074de963/benchmark.json) | 1.735779 | 1.142408 | 1.121681 | 0.416879 | 1.034444 | 0.124370 | 3.35x |
-| [7884328a5557](7884328a5557/benchmark.json) | 0.290308 | 0.095053 | 0.095066 | 0.181305 | 0.268239 | 0.027840 | 3.41x |
-| [7e38211c7f1c](7e38211c7f1c/benchmark.json) | 0.035787 | MISSING | MISSING | MISSING | MISSING | 0.004478 | — |
-| [8e33a91b7364](8e33a91b7364/benchmark.json) | 1.486722 | 1.052649 | 1.052414 | 1.049323 | 2.378080 | 0.328093 | 3.20x |
-| [94985bdb7630](94985bdb7630/benchmark.json) | 1.764277 | 0.508009 | 0.402570 | 0.416858 | 1.038955 | 0.124398 | 3.24x |
-| [97032595d968](97032595d968/benchmark.json) | 1.349655 | 0.411258 | 0.143351 | 0.915846 | 0.493667 | 0.025894 | 5.54x |
-| [c68dae22972b](c68dae22972b/benchmark.json) | 0.533863 | 0.316062 | 0.317194 | 0.316972 | 0.849736 | 0.097621 | 3.24x |
-| [c8c60d8f7015](c8c60d8f7015/benchmark.json) | 1.372121 | 0.204628 | 0.143210 | 0.915960 | 0.493297 | 0.026008 | 5.51x |
-| [d8f596b3df34](d8f596b3df34/benchmark.json) | 0.505044 | 0.321923 | 0.210916 | 0.370622 | 0.441228 | 0.082328 | 2.56x |
-| [e29b92927600](e29b92927600/benchmark.json) | 0.549294 | 0.094882 | 0.095904 | 0.402373 | 0.264225 | 0.004517 | 21.01x |
-| [f4e9e58fef73](f4e9e58fef73/benchmark.json) | 0.176888 | 0.130755 | 0.129021 | 0.192954 | 0.248919 | 0.020432 | 6.31x |
-| [f6251e84e3fa](f6251e84e3fa/benchmark.json) | — | FAIL | SKIP | ERROR | ERROR | 0.442653 | — |
+| [12545c1e9b06](12545c1e9b06/benchmark.json) | 0.255284 | 0.088367 | 0.085546 | 0.089069 | 0.085417 | 0.067279 | 1.27x |
+| [385e1beb9bb9](385e1beb9bb9/benchmark.json) | 0.316645 | 0.192184 | 0.194565 | 0.195340 | 0.195550 | 0.195878 | 0.98x |
+| [3c6c589cdf81](3c6c589cdf81/benchmark.json) | 0.171651 | 0.264055 | 0.141314 | 0.132675 | 0.131154 | 0.095955 | 1.37x |
+| [43f0c930291e](43f0c930291e/benchmark.json) | 0.180123 | 0.129681 | SKIP | 0.082025 (FAIL) | 0.071130 (FAIL) | 0.104634 | 1.24x |
+| [493cad38cac9](493cad38cac9/benchmark.json) | 0.162557 | 0.132841 | 0.021676 | 0.107568 | 0.127310 | 0.018378 | 1.18x |
+| [4b90e2d83144](4b90e2d83144/benchmark.json) | 0.022720 | 0.018010 | 0.018419 | 0.021286 | 0.024727 | 0.016576 | 1.09x |
+| [622c35f5d1c6](622c35f5d1c6/benchmark.json) | 3.913127 | 0.935764 | SKIP | 1.165141 | 1.077404 | 0.865498 | 1.08x |
+| [71f1d2c9f38b](71f1d2c9f38b/benchmark.json) | 5.033227 | 0.851540 | 0.850762 | 1.073788 | 1.082963 | 0.517264 | 1.64x |
+| [7815074de963](7815074de963/benchmark.json) | 0.392527 | 0.130132 | 0.130225 | 0.135994 | 0.133454 | 0.120100 | 1.08x |
+| [7884328a5557](7884328a5557/benchmark.json) | 0.052922 | 0.026748 | 0.026317 | 0.029718 | 0.029738 | 0.025663 | 1.03x |
+| [7e38211c7f1c](7e38211c7f1c/benchmark.json) | 0.034925 | SKIP | SKIP | 0.030133 | 0.025894 | 0.004164 | 6.22x |
+| [8e33a91b7364](8e33a91b7364/benchmark.json) | 1.107343 | 0.328815 | 0.329020 | 0.324881 | 0.324801 | 0.326849 | 0.99x |
+| [94985bdb7630](94985bdb7630/benchmark.json) | 0.392814 | 0.130170 | 0.216645 | 0.135620 | 0.133204 | 0.119850 | 1.09x |
+| [97032595d968](97032595d968/benchmark.json) | 0.217553 | 0.048873 | 0.042747 | 0.151786 | 0.169234 | 0.025608 | 1.67x |
+| [c68dae22972b](c68dae22972b/benchmark.json) | 0.188286 | 0.097068 | 0.122032 | 0.103866 | 0.103868 | 0.096986 | 1.00x |
+| [c8c60d8f7015](c8c60d8f7015/benchmark.json) | 0.210628 | 0.167519 | 0.032719 | 0.151585 | 0.169116 | 0.025428 | 1.29x |
+| [d8f596b3df34](d8f596b3df34/benchmark.json) | 0.147550 | 0.201493 | 0.125842 | 0.071469 | 0.059979 | 0.082036 | 0.73x |
+| [e29b92927600](e29b92927600/benchmark.json) | 0.035007 | 0.007967 | 0.004698 | 0.026345 | 0.030564 | 0.004124 | 1.14x |
+| [f4e9e58fef73](f4e9e58fef73/benchmark.json) | 0.022739 | 0.030886 | 0.024501 | 0.021347 | 0.024623 | 0.017230 | 1.24x |
+| [f6251e84e3fa](f6251e84e3fa/benchmark.json) | 1.917115 | 0.469736 | SKIP | 0.939078 (FAIL) | 0.939038 (FAIL) | 0.441925 | 1.06x |
 
-Status counts cover all problems, including missing entries. “Zero error” counts PASS entries reporting `max_abs_err == 0`; it is not a separate bitwise validation.
+PASS uses each backend's declared tolerance tier. Bitwise and memory columns are independent strict checks over the same three seeds; a numerical PASS alone does not establish either.
 
-| Backend | PASS | FAIL | ERROR | SKIP | MISSING | Timed PASS | Zero error | Bitwise label with nonzero error |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `kernelagent_triton` | 17 | 2 | 0 | 0 | 1 | 17 | 2 | 4 |
-| `kernelagent_triton_opt` | 16 | 0 | 0 | 3 | 1 | 16 | 3 | 3 |
-| `torch_compile` | 17 | 0 | 2 | 0 | 1 | 17 | 5 | 3 |
-| `torch_compile_max_autotune` | 17 | 0 | 2 | 0 | 1 | 17 | 5 | 3 |
-| `simple_prompt_kernel` | 20 | 0 | 0 | 0 | 0 | 20 | 20 | 0 |
+| Backend | PASS | FAIL | ERROR | SKIP | Bitwise PASS | Memory PASS | Both strict checks PASS |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `kernelagent_triton` | 19 | 0 | 0 | 1 | 2 | 12 | 2 |
+| `kernelagent_triton_opt` | 16 | 0 | 0 | 4 | 1 | 10 | 1 |
+| `torch_compile` | 18 | 2 | 0 | 0 | 7 | 19 | 7 |
+| `torch_compile_max_autotune` | 18 | 2 | 0 | 0 | 6 | 19 | 6 |
+| `simple_prompt_kernel` | 20 | 0 | 0 | 0 | 20 | 20 | 20 |
 
-Recorded ratios use `other["time_ms"] / simple_prompt_kernel["time_ms"]`; values above 1 mean the simple entry has the lower stored time. Each row uses only its own paired problems, with unrounded timings for arithmetic.
+Ratios use `other["time_ms"] / simple_prompt_kernel["time_ms"]`, with only passing pairs.
 
-| Other backend | Paired problems | Geomean recorded ratio | Minimum | Maximum | Simple lower / tied / higher |
+| Other backend | Paired problems | Geomean ratio | Minimum | Maximum | Simple lower / tied / higher |
 | --- | --- | --- | --- | --- | --- |
-| kernelagent_triton | 17 | 5.55x | 3.21x | 21.01x | 17 / 0 / 0 |
-| kernelagent_triton_opt | 16 | 4.70x | 2.43x | 21.23x | 16 / 0 / 0 |
-| torch_compile | 17 | 7.04x | 2.64x | 89.08x | 17 / 0 / 0 |
-| torch_compile_max_autotune | 17 | 11.35x | 5.36x | 58.50x | 17 / 0 / 0 |
-| Best passing other | 17 | 4.12x | 2.43x | 21.01x | 17 / 0 / 0 |
-| eager_ms (stored) | 18 | 14.17x | 4.53x | 121.61x | 18 / 0 / 0 |
+| kernelagent_triton | 19 | 1.61x | 0.98x | 7.23x | 18 / 0 / 1 |
+| kernelagent_triton_opt | 16 | 1.28x | 0.99x | 1.81x | 15 / 0 / 1 |
+| torch_compile | 18 | 1.90x | 0.87x | 7.24x | 15 / 0 / 3 |
+| torch_compile_max_autotune | 18 | 1.94x | 0.73x | 7.41x | 15 / 0 / 3 |
+| Best passing other | 20 | 1.25x | 0.73x | 6.22x | 17 / 0 / 3 |
+| Eager | 20 | 3.50x | 1.32x | 9.73x | 20 / 0 / 0 |
 
-Problems without a passing alternative retain the following recorded outcomes:
+Failures and missing implementations:
 
-- `43f0c930291e` — `kernelagent_triton`: FAIL, `kernelagent_triton_opt`: SKIP, `torch_compile`: ERROR, `torch_compile_max_autotune`: ERROR. Reasons: execution (trial 0): index 1 is out of bounds for dimension 0 with size 0; no optimized_kernel.py.
-- `7e38211c7f1c` — `kernelagent_triton`: MISSING, `kernelagent_triton_opt`: MISSING, `torch_compile`: MISSING, `torch_compile_max_autotune`: MISSING.
-- `f6251e84e3fa` — `kernelagent_triton`: FAIL, `kernelagent_triton_opt`: SKIP, `torch_compile`: ERROR, `torch_compile_max_autotune`: ERROR. Reasons: execution (trial 0): index 1 is out of bounds for dimension 0 with size 0; no optimized_kernel.py.
+- `43f0c930291e`: `kernelagent_triton_opt`: SKIP (no optimized_kernel.py); `torch_compile`: FAIL (3 seeds; bitwise FAIL; memory PASS; numerical tolerance exceeded); `torch_compile_max_autotune`: FAIL (3 seeds; bitwise FAIL; memory PASS; numerical tolerance exceeded).
+- `622c35f5d1c6`: `kernelagent_triton_opt`: SKIP (no optimized_kernel.py).
+- `7e38211c7f1c`: `kernelagent_triton`: SKIP (no kernel.py); `kernelagent_triton_opt`: SKIP (no optimized_kernel.py).
+- `f6251e84e3fa`: `kernelagent_triton_opt`: SKIP (no optimized_kernel.py); `torch_compile`: FAIL (3 seeds; bitwise FAIL; memory FAIL; numerical tolerance exceeded); `torch_compile_max_autotune`: FAIL (3 seeds; bitwise FAIL; memory FAIL; numerical tolerance exceeded).
+
+All 20 simple kernel sources also match the earlier full validation: 161 cases, including edge inputs, passed bitwise and memory checks.

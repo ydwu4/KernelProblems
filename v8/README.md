@@ -1,9 +1,12 @@
 # KernelProblems v8 — Benchmark Review
 
-The [consolidated benchmark report](benchmark_comparison.md) compares every stored
-backend entry, including `simple_prompt_kernel`, across all 20 problems. Its
-[JSON report](benchmark_comparison.json) preserves the original entries and records
-the derived timing ratios and status counts.
+The [GB300 benchmark report](benchmark_comparison.md) compares fresh measurements
+for all five backends across all 20 problems under matching conditions. Its
+[JSON report](benchmark_comparison.json) records timings, hardware/software
+provenance, and independent bitwise and memory checks.
+
+The tables below are historical results from before the GB300 rerun; their
+hardware metadata was not recorded.
 
 ## Per-problem comparison (all times in ms)
 
