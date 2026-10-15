@@ -33,5 +33,13 @@
     "max_tol_units": 0.5291005373001099,
     "note": "trusted baseline",
     "time_ms": 2.378080291748047
+  },
+  "simple_prompt_kernel": {
+    "status": "PASS",
+    "tol_tier": "bitwise",
+    "max_abs_err": 0.0,
+    "max_tol_units": 0.0,
+    "note": "final; memory pass; 98.45% full-traffic memory control; copy stage DRAM 88.17% peak",
+    "time_ms": 0.32809278964996336
   }
 }

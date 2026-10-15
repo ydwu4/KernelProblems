@@ -33,5 +33,13 @@
     "max_tol_units": 1.033807984640589e-05,
     "note": "trusted baseline",
     "time_ms": 3.1504742431640627
+  },
+  "simple_prompt_kernel": {
+    "status": "PASS",
+    "tol_tier": "bitwise",
+    "max_abs_err": 0.0,
+    "max_tol_units": 0.0,
+    "note": "final; memory pass; 75.66% scheduler issue capacity (NCU); roofline incomplete",
+    "time_ms": 0.5175792217254639
   }
 }

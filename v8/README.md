@@ -1,5 +1,10 @@
 # KernelProblems v8 — Benchmark Review
 
+The [consolidated benchmark report](benchmark_comparison.md) compares every stored
+backend entry, including `simple_prompt_kernel`, across all 20 problems. Its
+[JSON report](benchmark_comparison.json) preserves the original entries and records
+the derived timing ratios and status counts.
+
 ## Per-problem comparison (all times in ms)
 
 | problem | fwd/bwd | inst | eager | triton | tri_opt | compile | comp_ma | **best** | **speedup** | key ops |

@@ -1,0 +1,1169 @@
+{
+  "source": "v8/*/benchmark.json",
+  "timing_unit": "ms",
+  "problem_count": 20,
+  "backend_order": [
+    "kernelagent_triton",
+    "kernelagent_triton_opt",
+    "torch_compile",
+    "torch_compile_max_autotune",
+    "simple_prompt_kernel"
+  ],
+  "interpretation": [
+    "This report reads only v8/*/benchmark.json; it does not run or retime kernels.",
+    "Time ratios use the stored time_ms values. Earlier backend entries omit hardware, software, and timing-method metadata, so common measurement conditions are unverified.",
+    "PASS, tol_tier, errors, notes, and failure reasons are preserved as reported. Some historical entries labeled bitwise have nonzero max_abs_err. Neither that label nor a zero numerical error alone proves raw-byte parity.",
+    "Ratios include only PASS entries with finite positive timings. Missing, failed, errored, or skipped alternatives do not count as timing wins.",
+    "Memory and roofline findings appear in simple_prompt_kernel notes; the other entries do not contain corresponding measurements for a quantitative comparison."
+  ],
+  "source_sha256": {
+    "v8/12545c1e9b06/benchmark.json": "d17137d10f6ecb9308956140774725c4e7a8995aa6a972d8bfe1b06e3a1db0da",
+    "v8/385e1beb9bb9/benchmark.json": "fb1cb62966af0ec1c0708b59c1b2ecdde5542a90bd7677d06809f8b7a92fa2ef",
+    "v8/3c6c589cdf81/benchmark.json": "d2b96ff9100b64076f882399c6ff1f950b9708c3c7d2376831569bf0679b14db",
+    "v8/43f0c930291e/benchmark.json": "b9b20fbf52ce6fcde29b12a86b0ede5e63078c83f440e7292a14ae8d15b15c05",
+    "v8/493cad38cac9/benchmark.json": "c06b6dafb839958d6526a95d43527f167662716aff853a37f50406882065cb9f",
+    "v8/4b90e2d83144/benchmark.json": "144bf4a8c8ae9f4f8efebed53c4971970f896b710b55c02499c22d40406179b7",
+    "v8/622c35f5d1c6/benchmark.json": "0c11dbbe5e8c930a2b4c72b2b1080f7d855ebd264633a8718cf1314e2eac0e75",
+    "v8/71f1d2c9f38b/benchmark.json": "ad316c4426d1cee92d85b43f5b43646566de2f6dbb24d4d197425b42a6485905",
+    "v8/7815074de963/benchmark.json": "000a7908a2d8c422e3e650fc4f8b05dd834df11aa81096b9c106527bc1e80fb7",
+    "v8/7884328a5557/benchmark.json": "b424bb8d0414eb091a545a9e25326901072bf64d4d0b89e68bc65076e25f306f",
+    "v8/7e38211c7f1c/benchmark.json": "cb7057f4c3e1a256d841fe10adf79002cb8396547114e093b5d50cebf307dc35",
+    "v8/8e33a91b7364/benchmark.json": "13ddc780bc52f93de22a6c4fc5fc9a9f68b151d419f03ad142f4db1c171b65e3",
+    "v8/94985bdb7630/benchmark.json": "d4bba25908e98339c1c8653bb2aa65e6d05845a208c141c8a95dff2325693476",
+    "v8/97032595d968/benchmark.json": "a30fc1a04b571b9e0bd281b3f0e004186c050914999ef703b5187860ab3ad820",
+    "v8/c68dae22972b/benchmark.json": "f8beef81b8be0c9423d82208aa41e4887d3881e7772804667dba53f4af2cd7bd",
+    "v8/c8c60d8f7015/benchmark.json": "14ae129d31152714b2838bc6f569d1535f6f54046c47c029cd687d0211b32784",
+    "v8/d8f596b3df34/benchmark.json": "6cc546ad86fa47a649ce7a99174b50e7409710ba5932fbb1143c0cc61f4e94c6",
+    "v8/e29b92927600/benchmark.json": "b30ab6226067a976ae27655cdd2079bad9bf05f3410edb9046c0dd9817531145",
+    "v8/f4e9e58fef73/benchmark.json": "b01c3f5b067cca34a60f1012d1c7da94f6e1c0b831f14adfd4936ae90bc5c9c8",
+    "v8/f6251e84e3fa/benchmark.json": "9ad445fe8e625b7df9dd1c94a6230c0f3787324998d7dff26d1b4df089175fe0"
+  },
+  "backend_summary": {
+    "kernelagent_triton": {
+      "present": 19,
+      "status_counts": {
+        "PASS": 17,
+        "FAIL": 2,
+        "MISSING": 1
+      },
+      "timed_passes": 17,
+      "passed_with_zero_max_abs_err": 2,
+      "passed_with_nonzero_error_and_bitwise_label": 4,
+      "reported_tol_tiers": [
+        "reduction",
+        "bitwise",
+        "complex"
+      ]
+    },
+    "kernelagent_triton_opt": {
+      "present": 19,
+      "status_counts": {
+        "PASS": 16,
+        "SKIP": 3,
+        "MISSING": 1
+      },
+      "timed_passes": 16,
+      "passed_with_zero_max_abs_err": 3,
+      "passed_with_nonzero_error_and_bitwise_label": 3,
+      "reported_tol_tiers": [
+        "reduction",
+        "bitwise",
+        "complex"
+      ]
+    },
+    "torch_compile": {
+      "present": 19,
+      "status_counts": {
+        "PASS": 17,
+        "ERROR": 2,
+        "MISSING": 1
+      },
+      "timed_passes": 17,
+      "passed_with_zero_max_abs_err": 5,
+      "passed_with_nonzero_error_and_bitwise_label": 3,
+      "reported_tol_tiers": [
+        "reduction",
+        "bitwise",
+        "complex"
+      ]
+    },
+    "torch_compile_max_autotune": {
+      "present": 19,
+      "status_counts": {
+        "PASS": 17,
+        "ERROR": 2,
+        "MISSING": 1
+      },
+      "timed_passes": 17,
+      "passed_with_zero_max_abs_err": 5,
+      "passed_with_nonzero_error_and_bitwise_label": 3,
+      "reported_tol_tiers": [
+        "reduction",
+        "bitwise",
+        "complex"
+      ]
+    },
+    "simple_prompt_kernel": {
+      "present": 20,
+      "status_counts": {
+        "PASS": 20,
+        "MISSING": 0
+      },
+      "timed_passes": 20,
+      "passed_with_zero_max_abs_err": 20,
+      "passed_with_nonzero_error_and_bitwise_label": 0,
+      "reported_tol_tiers": [
+        "bitwise"
+      ]
+    }
+  },
+  "recorded_ratio_definition": "other[\"time_ms\"] / simple_prompt_kernel[\"time_ms\"]",
+  "recorded_ratio_summary": {
+    "kernelagent_triton": {
+      "paired_problems": 17,
+      "geomean_recorded_ratio": 5.548855328438053,
+      "minimum_recorded_ratio": 3.208387867664825,
+      "maximum_recorded_ratio": 21.006517393883705,
+      "simple_lower_recorded_time": 17,
+      "equal_recorded_time": 0,
+      "simple_higher_recorded_time": 0
+    },
+    "kernelagent_triton_opt": {
+      "paired_problems": 16,
+      "geomean_recorded_ratio": 4.698377233447516,
+      "minimum_recorded_ratio": 2.430965109016998,
+      "maximum_recorded_ratio": 21.23272999984412,
+      "simple_lower_recorded_time": 16,
+      "equal_recorded_time": 0,
+      "simple_higher_recorded_time": 0
+    },
+    "torch_compile": {
+      "paired_problems": 17,
+      "geomean_recorded_ratio": 7.04040922693815,
+      "minimum_recorded_ratio": 2.6444251159181835,
+      "maximum_recorded_ratio": 89.08360061570218,
+      "simple_lower_recorded_time": 17,
+      "equal_recorded_time": 0,
+      "simple_higher_recorded_time": 0
+    },
+    "torch_compile_max_autotune": {
+      "paired_problems": 17,
+      "geomean_recorded_ratio": 11.351751341767557,
+      "minimum_recorded_ratio": 5.359397744597477,
+      "maximum_recorded_ratio": 58.49833202374691,
+      "simple_lower_recorded_time": 17,
+      "equal_recorded_time": 0,
+      "simple_higher_recorded_time": 0
+    }
+  },
+  "best_other_recorded_ratio_summary": {
+    "paired_problems": 17,
+    "geomean_recorded_ratio": 4.120531243385308,
+    "minimum_recorded_ratio": 2.430965109016998,
+    "maximum_recorded_ratio": 21.006517393883705,
+    "simple_lower_recorded_time": 17,
+    "equal_recorded_time": 0,
+    "simple_higher_recorded_time": 0
+  },
+  "recorded_eager_over_simple_ratio_summary": {
+    "paired_problems": 18,
+    "geomean_recorded_ratio": 14.16714912704422,
+    "minimum_recorded_ratio": 4.5314069715822205,
+    "maximum_recorded_ratio": 121.61140205364376,
+    "simple_lower_recorded_time": 18,
+    "equal_recorded_time": 0,
+    "simple_higher_recorded_time": 0
+  },
+  "problems_without_passing_other_timing": [
+    "43f0c930291e",
+    "7e38211c7f1c",
+    "f6251e84e3fa"
+  ],
+  "per_problem_comparison": {
+    "12545c1e9b06": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "torch_compile",
+      "best_other_time_ms": 0.29050336837768553,
+      "simple_time_ms": 0.06793280243873596,
+      "best_other_over_simple_recorded_ratio": 4.276334229545013
+    },
+    "385e1beb9bb9": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "torch_compile",
+      "best_other_time_ms": 0.6243900680541992,
+      "simple_time_ms": 0.19707679748535156,
+      "best_other_over_simple_recorded_ratio": 3.168257633680135
+    },
+    "3c6c589cdf81": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.24569471359252928,
+      "simple_time_ms": 0.10106879472732544,
+      "best_other_over_simple_recorded_ratio": 2.430965109016998
+    },
+    "43f0c930291e": {
+      "passing_alternatives_with_time": 0,
+      "best_other_backend": null,
+      "best_other_time_ms": null,
+      "simple_time_ms": 0.10620640516281128,
+      "best_other_over_simple_recorded_ratio": null
+    },
+    "493cad38cac9": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.09003647804260254,
+      "simple_time_ms": 0.018328000605106354,
+      "best_other_over_simple_recorded_ratio": 4.912509552052149
+    },
+    "4b90e2d83144": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.10219967842102051,
+      "simple_time_ms": 0.02050720006227493,
+      "best_other_over_simple_recorded_ratio": 4.983599814244128
+    },
+    "622c35f5d1c6": {
+      "passing_alternatives_with_time": 3,
+      "best_other_backend": "kernelagent_triton",
+      "best_other_time_ms": 2.911875,
+      "simple_time_ms": 0.8667679786682129,
+      "best_other_over_simple_recorded_ratio": 3.359463053162266
+    },
+    "71f1d2c9f38b": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "torch_compile",
+      "best_other_time_ms": 1.368699493408203,
+      "simple_time_ms": 0.5175792217254639,
+      "best_other_over_simple_recorded_ratio": 2.6444251159181835
+    },
+    "7815074de963": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "torch_compile",
+      "best_other_time_ms": 0.4168787384033203,
+      "simple_time_ms": 0.12436959743499756,
+      "best_other_over_simple_recorded_ratio": 3.351934451835821
+    },
+    "7884328a5557": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton",
+      "best_other_time_ms": 0.09505279541015625,
+      "simple_time_ms": 0.02784000039100647,
+      "best_other_over_simple_recorded_ratio": 3.414252660745739
+    },
+    "7e38211c7f1c": {
+      "passing_alternatives_with_time": 0,
+      "best_other_backend": null,
+      "best_other_time_ms": null,
+      "simple_time_ms": 0.004478399828076363,
+      "best_other_over_simple_recorded_ratio": null
+    },
+    "8e33a91b7364": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "torch_compile",
+      "best_other_time_ms": 1.049323196411133,
+      "simple_time_ms": 0.32809278964996336,
+      "best_other_over_simple_recorded_ratio": 3.198251316435933
+    },
+    "94985bdb7630": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.4025699234008789,
+      "simple_time_ms": 0.12439839839935303,
+      "best_other_over_simple_recorded_ratio": 3.2361342957850536
+    },
+    "97032595d968": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.1433510398864746,
+      "simple_time_ms": 0.025894400477409363,
+      "best_other_over_simple_recorded_ratio": 5.535986052719624
+    },
+    "c68dae22972b": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton",
+      "best_other_time_ms": 0.31606176376342776,
+      "simple_time_ms": 0.0976207971572876,
+      "best_other_over_simple_recorded_ratio": 3.2376478472531414
+    },
+    "c8c60d8f7015": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.14320992469787597,
+      "simple_time_ms": 0.02600800096988678,
+      "best_other_over_simple_recorded_ratio": 5.506379550804032
+    },
+    "d8f596b3df34": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.21091552734375,
+      "simple_time_ms": 0.08232799768447877,
+      "best_other_over_simple_recorded_ratio": 2.5618930773961206
+    },
+    "e29b92927600": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton",
+      "best_other_time_ms": 0.09488224029541016,
+      "simple_time_ms": 0.004516800120472908,
+      "best_other_over_simple_recorded_ratio": 21.006517393883705
+    },
+    "f4e9e58fef73": {
+      "passing_alternatives_with_time": 4,
+      "best_other_backend": "kernelagent_triton_opt",
+      "best_other_time_ms": 0.12902112007141114,
+      "simple_time_ms": 0.020431999862194062,
+      "best_other_over_simple_recorded_ratio": 6.314659403955007
+    },
+    "f6251e84e3fa": {
+      "passing_alternatives_with_time": 0,
+      "best_other_backend": null,
+      "best_other_time_ms": null,
+      "simple_time_ms": 0.4426527976989746,
+      "best_other_over_simple_recorded_ratio": null
+    }
+  },
+  "benchmarks": {
+    "12545c1e9b06": {
+      "eager_ms": 1.7649433898925782,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.015625,
+        "max_tol_units": 0.2207505702972412,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.5233987045288085
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.015625,
+        "max_tol_units": 0.2207505702972412,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.5200384140014649
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.015625,
+        "max_tol_units": 0.17513135075569153,
+        "note": "trusted baseline",
+        "time_ms": 0.29050336837768553
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.015625,
+        "max_tol_units": 0.17513135075569153,
+        "note": "trusted baseline",
+        "time_ms": 1.5913462829589844
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 99.79% full-traffic memory control; fused kernel DRAM 79.17% peak",
+        "time_ms": 0.06793280243873596
+      }
+    },
+    "385e1beb9bb9": {
+      "eager_ms": 0.9450188446044921,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.8833922743797302,
+        "atol_eff": 0.125,
+        "rtol": 0.001,
+        "time_ms": 0.6354816055297852
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.8833922743797302,
+        "atol_eff": 0.125,
+        "rtol": 0.001,
+        "time_ms": 0.6304851150512696
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 1.2953368425369263,
+        "note": "trusted baseline",
+        "time_ms": 0.6243900680541992
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 1.2953368425369263,
+        "note": "trusted baseline",
+        "time_ms": 1.6767254638671876
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; HBM 89.93% sustained peak; 99.20% matched memory control",
+        "time_ms": 0.19707679748535156
+      }
+    },
+    "3c6c589cdf81": {
+      "eager_ms": 0.6681775665283203,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 1.23077392578125,
+        "max_tol_units": 0.6257112622261047,
+        "atol_eff": 1.221923828125,
+        "rtol": 0.01,
+        "time_ms": 0.3874051284790039
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 1.222015380859375,
+        "max_tol_units": 0.6130273342132568,
+        "atol_eff": 1.221923828125,
+        "rtol": 0.01,
+        "time_ms": 0.24569471359252928
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 1.221923828125,
+        "max_tol_units": 12.4854154586792,
+        "note": "trusted baseline",
+        "time_ms": 0.29031328201293943
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 1.221923828125,
+        "max_tol_units": 12.48563289642334,
+        "note": "trusted baseline",
+        "time_ms": 0.5817881774902344
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 48.5% of compulsory-traffic bandwidth bound; roofline incomplete",
+        "time_ms": 0.10106879472732544
+      }
+    },
+    "43f0c930291e": {
+      "eager_ms": null,
+      "kernelagent_triton": {
+        "status": "FAIL",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "reason": "execution (trial 0): index 1 is out of bounds for dimension 0 with size 0"
+      },
+      "kernelagent_triton_opt": {
+        "status": "SKIP",
+        "reason": "no optimized_kernel.py"
+      },
+      "torch_compile": {
+        "status": "ERROR",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "reason": "execution (trial 0): index 1 is out of bounds for dimension 0 with size 0"
+      },
+      "torch_compile_max_autotune": {
+        "status": "ERROR",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "reason": "execution (trial 0): index 1 is out of bounds for dimension 0 with size 0"
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 55.5% of compulsory-traffic bandwidth bound; roofline incomplete",
+        "time_ms": 0.10620640516281128
+      }
+    },
+    "493cad38cac9": {
+      "eager_ms": 0.5512278366088867,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.28011205792427063,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.16176671981811525
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.09003647804260254
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.40761409759521483
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.3955567932128906
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 99.17% matched memory control; mixed HBM/L2 access",
+        "time_ms": 0.018328000605106354
+      }
+    },
+    "4b90e2d83144": {
+      "eager_ms": 0.20288639068603515,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.3472222089767456,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.10473088264465331
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.3472222089767456,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.10219967842102051
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.34602078795433044,
+        "note": "trusted baseline",
+        "time_ms": 0.18512191772460937
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.34602078795433044,
+        "note": "trusted baseline",
+        "time_ms": 0.2567286491394043
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 87.31% matched memory control; tighter roofline not established",
+        "time_ms": 0.02050720006227493
+      }
+    },
+    "622c35f5d1c6": {
+      "eager_ms": 12.14939697265625,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 3.0517578125e-05,
+        "max_tol_units": 0.000381450226996094,
+        "atol_eff": 0.08,
+        "rtol": 0.001,
+        "time_ms": 2.911875
+      },
+      "kernelagent_triton_opt": {
+        "status": "SKIP",
+        "reason": "no optimized_kernel.py"
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 3.003287658691406
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 6.798575439453125
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; HBM 90.84% sustained peak (NCU), 7.20 TB/s",
+        "time_ms": 0.8667679786682129
+      }
+    },
+    "71f1d2c9f38b": {
+      "eager_ms": 10.970360107421875,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 9.5367431640625e-06,
+        "max_tol_units": 0.0001033808002830483,
+        "atol_eff": 0.08,
+        "rtol": 0.001,
+        "time_ms": 1.8407994079589844
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 1.52587890625e-05,
+        "max_tol_units": 0.00016540927754249424,
+        "atol_eff": 0.08,
+        "rtol": 0.001,
+        "time_ms": 1.840914306640625
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 9.5367431640625e-07,
+        "max_tol_units": 1.033807984640589e-05,
+        "note": "trusted baseline",
+        "time_ms": 1.368699493408203
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 9.5367431640625e-07,
+        "max_tol_units": 1.033807984640589e-05,
+        "note": "trusted baseline",
+        "time_ms": 3.1504742431640627
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 75.66% scheduler issue capacity (NCU); roofline incomplete",
+        "time_ms": 0.5175792217254639
+      }
+    },
+    "7815074de963": {
+      "eager_ms": 1.7357785034179687,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.42016804218292236,
+        "atol_eff": 0.125,
+        "rtol": 0.01,
+        "time_ms": 1.1424082946777343
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.42016804218292236,
+        "atol_eff": 0.125,
+        "rtol": 0.01,
+        "time_ms": 1.1216806030273438
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.5617977380752563,
+        "note": "trusted baseline",
+        "time_ms": 0.4168787384033203
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.5617977380752563,
+        "note": "trusted baseline",
+        "time_ms": 1.0344441223144532
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 95.86% full-traffic memory control; copy stage DRAM 83.27% peak",
+        "time_ms": 0.12436959743499756
+      }
+    },
+    "7884328a5557": {
+      "eager_ms": 0.29030847549438477,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0625,
+        "max_tol_units": 0.4385964870452881,
+        "atol_eff": 0.0625,
+        "rtol": 0.01,
+        "time_ms": 0.09505279541015625
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.5586592555046082,
+        "atol_eff": 0.0625,
+        "rtol": 0.01,
+        "time_ms": 0.09506624221801757
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0625,
+        "max_tol_units": 0.48076924681663513,
+        "note": "trusted baseline",
+        "time_ms": 0.1813052749633789
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0625,
+        "max_tol_units": 0.48076924681663513,
+        "note": "trusted baseline",
+        "time_ms": 0.2682387161254883
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 95.85% matched memory control; mixed HBM/L2 access",
+        "time_ms": 0.02784000039100647
+      }
+    },
+    "7e38211c7f1c": {
+      "eager_ms": 0.035787200927734374,
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 88.52% matched memory control; tighter roofline not established",
+        "time_ms": 0.004478399828076363
+      }
+    },
+    "8e33a91b7364": {
+      "eager_ms": 1.486721954345703,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.40160641074180603,
+        "atol_eff": 0.125,
+        "rtol": 0.01,
+        "time_ms": 1.05264892578125
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.40160641074180603,
+        "atol_eff": 0.125,
+        "rtol": 0.01,
+        "time_ms": 1.052413787841797
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.5291005373001099,
+        "note": "trusted baseline",
+        "time_ms": 1.049323196411133
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.5291005373001099,
+        "note": "trusted baseline",
+        "time_ms": 2.378080291748047
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 98.45% full-traffic memory control; copy stage DRAM 88.17% peak",
+        "time_ms": 0.32809278964996336
+      }
+    },
+    "94985bdb7630": {
+      "eager_ms": 1.7642771911621093,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.42016804218292236,
+        "atol_eff": 0.125,
+        "rtol": 0.01,
+        "time_ms": 0.5080089569091797
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.42016804218292236,
+        "atol_eff": 0.125,
+        "rtol": 0.01,
+        "time_ms": 0.4025699234008789
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.5617977380752563,
+        "note": "trusted baseline",
+        "time_ms": 0.4168582534790039
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.5617977380752563,
+        "note": "trusted baseline",
+        "time_ms": 1.0389548492431642
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 95.86% full-traffic memory control; copy stage DRAM 83.27% peak",
+        "time_ms": 0.12439839839935303
+      }
+    },
+    "97032595d968": {
+      "eager_ms": 1.349655303955078,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.4112579345703125
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.1433510398864746
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.9158457946777344
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.49366657257080077
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 99.41% matched memory control; mixed HBM/L2 access",
+        "time_ms": 0.025894400477409363
+      }
+    },
+    "c68dae22972b": {
+      "eager_ms": 0.5338627243041992,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.868809700012207,
+        "atol_eff": 0.125,
+        "rtol": 0.001,
+        "time_ms": 0.31606176376342776
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 0.868809700012207,
+        "atol_eff": 0.125,
+        "rtol": 0.001,
+        "time_ms": 0.3171939277648926
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 1.264222502708435,
+        "note": "trusted baseline",
+        "time_ms": 0.3169721603393555
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.125,
+        "max_tol_units": 1.264222502708435,
+        "note": "trusted baseline",
+        "time_ms": 0.8497357177734375
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; HBM 87.97% sustained peak; 99.51% matched memory control",
+        "time_ms": 0.0976207971572876
+      }
+    },
+    "c8c60d8f7015": {
+      "eager_ms": 1.3721209716796876,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.20462783813476562
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.14320992469787597
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.9159597015380859
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.49329662322998047
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 99.35% matched memory control; mixed HBM/L2 access",
+        "time_ms": 0.02600800096988678
+      }
+    },
+    "d8f596b3df34": {
+      "eager_ms": 0.5050444793701172,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.998504638671875,
+        "max_tol_units": 0.24174058437347412,
+        "atol_eff": 1.42315673828125,
+        "rtol": 0.01,
+        "time_ms": 0.32192256927490237
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.998504638671875,
+        "max_tol_units": 0.2417788952589035,
+        "atol_eff": 1.42315673828125,
+        "rtol": 0.01,
+        "time_ms": 0.21091552734375
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 1.42315673828125,
+        "max_tol_units": 11.24614143371582,
+        "note": "trusted baseline",
+        "time_ms": 0.3706224060058594
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 1.42315673828125,
+        "max_tol_units": 11.246369361877441,
+        "note": "trusted baseline",
+        "time_ms": 0.44122848510742185
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 59.7% of compulsory-traffic bandwidth bound; roofline incomplete",
+        "time_ms": 0.08232799768447877
+      }
+    },
+    "e29b92927600": {
+      "eager_ms": 0.5492943954467774,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.3412969410419464,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.09488224029541016
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.3412969410419464,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.09590399742126465
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.40237281799316404
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "complex",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "trusted baseline",
+        "time_ms": 0.26422527313232425
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 88.03% matched memory control; tighter roofline not established",
+        "time_ms": 0.004516800120472908
+      }
+    },
+    "f4e9e58fef73": {
+      "eager_ms": 0.17688831329345703,
+      "kernelagent_triton": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.34602078795433044,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.13075488090515136
+      },
+      "kernelagent_triton_opt": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.3472222089767456,
+        "atol_eff": 0.05,
+        "rtol": 0.01,
+        "time_ms": 0.12902112007141114
+      },
+      "torch_compile": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.34602078795433044,
+        "note": "trusted baseline",
+        "time_ms": 0.19295360565185546
+      },
+      "torch_compile_max_autotune": {
+        "status": "PASS",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.03125,
+        "max_tol_units": 0.3472222089767456,
+        "note": "trusted baseline",
+        "time_ms": 0.2489187240600586
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; 87.56% matched memory control; tighter roofline not established",
+        "time_ms": 0.020431999862194062
+      }
+    },
+    "f6251e84e3fa": {
+      "eager_ms": null,
+      "kernelagent_triton": {
+        "status": "FAIL",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "reason": "execution (trial 0): index 1 is out of bounds for dimension 0 with size 0"
+      },
+      "kernelagent_triton_opt": {
+        "status": "SKIP",
+        "reason": "no optimized_kernel.py"
+      },
+      "torch_compile": {
+        "status": "ERROR",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "reason": "execution (trial 0): index 1 is out of bounds for dimension 0 with size 0"
+      },
+      "torch_compile_max_autotune": {
+        "status": "ERROR",
+        "tol_tier": "reduction",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "reason": "execution (trial 0): index 1 is out of bounds for dimension 0 with size 0"
+      },
+      "simple_prompt_kernel": {
+        "status": "PASS",
+        "tol_tier": "bitwise",
+        "max_abs_err": 0.0,
+        "max_tol_units": 0.0,
+        "note": "final; memory pass; Full function 72.00% of compulsory memory control; zero-output phase HBM 94.92% sustained peak; roofline not established",
+        "time_ms": 0.4426527976989746
+      }
+    }
+  }
+}

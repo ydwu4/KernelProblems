@@ -33,5 +33,13 @@
     "max_tol_units": 1.2953368425369263,
     "note": "trusted baseline",
     "time_ms": 1.6767254638671876
+  },
+  "simple_prompt_kernel": {
+    "status": "PASS",
+    "tol_tier": "bitwise",
+    "max_abs_err": 0.0,
+    "max_tol_units": 0.0,
+    "note": "final; memory pass; HBM 89.93% sustained peak; 99.20% matched memory control",
+    "time_ms": 0.19707679748535156
   }
 }

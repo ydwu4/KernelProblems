@@ -33,5 +33,13 @@
     "max_tol_units": 12.48563289642334,
     "note": "trusted baseline",
     "time_ms": 0.5817881774902344
+  },
+  "simple_prompt_kernel": {
+    "status": "PASS",
+    "tol_tier": "bitwise",
+    "max_abs_err": 0.0,
+    "max_tol_units": 0.0,
+    "note": "final; memory pass; 48.5% of compulsory-traffic bandwidth bound; roofline incomplete",
+    "time_ms": 0.10106879472732544
   }
 }

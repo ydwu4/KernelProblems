@@ -24,5 +24,13 @@
     "max_abs_err": 0.0,
     "max_tol_units": 0.0,
     "reason": "execution (trial 0): index 1 is out of bounds for dimension 0 with size 0"
+  },
+  "simple_prompt_kernel": {
+    "status": "PASS",
+    "tol_tier": "bitwise",
+    "max_abs_err": 0.0,
+    "max_tol_units": 0.0,
+    "note": "final; memory pass; Full function 72.00% of compulsory memory control; zero-output phase HBM 94.92% sustained peak; roofline not established",
+    "time_ms": 0.4426527976989746
   }
 }
